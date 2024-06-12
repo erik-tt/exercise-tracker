@@ -2,7 +2,7 @@
 import React from "react";
 import { useAuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import Header from "@/components/header";
+import Sidebar from "@/components/sidebar";
 
 export default function Page() {
     const { user } = useAuthContext()
@@ -13,8 +13,8 @@ export default function Page() {
     }, [user])
 
     return (
-        <div>
-            <h1>Landing Page</h1>
+        <div className="wrapper bg-gray-100 min-h-screen">
+            <Sidebar />
         </div>
     );
 }
