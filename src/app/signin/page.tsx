@@ -24,7 +24,7 @@ export default function Page() {
     return (
     <div className="wrapper flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-600 to-purple-500">
         <div className="form-wrapper bg-white p-10 rounded-lg shadow-md text-gray-700">
-            <h1 className="text-2xl font-bold mb-6">Sign In</h1>
+            <h1 className="text-2xl font-bold mb-6">Log In</h1>
             <form onSubmit={handleForm} className="form space-y-4">
                 <label htmlFor="email" className="block"> 
                     <p className="mb-2">Email</p>
@@ -53,7 +53,7 @@ export default function Page() {
                 type="submit"
                 className="w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600"
                 >
-                    Sign In
+                    Log In
                 </button>
             </form>
             <p className="mt-4 text-center">

@@ -16,7 +16,7 @@ const withAuth = (WrappedComponent: React.ComponentType) => {
 
         useEffect(() => {
             if (!user) {
-                router.push("/signup");
+                router.push("/signin");
             }
         }, [user, router]);
 
