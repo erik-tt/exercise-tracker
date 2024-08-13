@@ -32,9 +32,9 @@ const Sidebar = () => {
                     </li>
                     <li>
                         <Link href="/add">
-                            <p className={`p-2 px-6  cursor-pointer rounded-md border border-purple-600 ${selected === 'add' ? 'bg-purple-600 text-white' : ''}
-                            hover:bg-purple-600 hover:text-white`} onClick={() => setSelected('add')}>
-                                Add +
+                            <p className={`p-2 px-6  cursor-pointer rounded-md border border-purple-600 
+                            hover:bg-blue-500 hover:text-white`} onClick={() => setSelected('add')}>
+                                Add + 
                             </p>
                         </Link>
                     </li>

@@ -21,6 +21,7 @@ export default function Page() {
         console.log(result)
         return router.push("/")
     }
+
     return (
     <div className="wrapper flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-600 to-purple-500">
         <div className="form-wrapper bg-white p-10 rounded-lg shadow-md text-gray-700">
