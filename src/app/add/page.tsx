@@ -3,8 +3,7 @@ import React from 'react'; // Adjust the path as needed
 
 const addWorkout = () => {
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Log a Workout</h1>
+    <div className="bg-gray-100 w-full min-h-screen p-6">
       <WorkoutForm />
     </div>
   );

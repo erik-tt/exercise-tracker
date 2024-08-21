@@ -34,8 +34,9 @@ const WorkoutForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4 max-w-lg mx-auto p-10 bg-white shadow-md rounded">
       <div>
+      <h1 className="text-2xl font-bold mb-4">Log a Workout</h1>
         <label htmlFor="title">Title:</label>
         <input
           type="text"
