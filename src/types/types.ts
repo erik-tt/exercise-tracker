@@ -1,12 +1,11 @@
 
 //Types:
 export interface Workout {
-    id: number;
+    id: string;
     title: string;
     description: string;
     duration: string;
     date: string;
-    type: string;
 }
 
 
@@ -17,7 +16,6 @@ export interface WorkoutCardProps {
     description: string;
     duration: string;
     date: string;
-    type: string;
 }
 
 

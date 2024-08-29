@@ -6,7 +6,8 @@ import React, { useState } from 'react'; // Adjust the path as needed
 const WorkoutForm = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [duration, setDuration] = useState('');
+  const [hours, setHours] = useState('');
+  const [minutes, setMinutes] = useState('');
   const [date, setDate] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -16,7 +17,7 @@ const WorkoutForm = () => {
 
     try {
       const id = new Date().toISOString(); // Generate a unique ID, e.g., timestamp
-      const data = { title, description, duration, date };
+      const data = { title, description, hours, minutes, date };
       const result = await addData('workouts', id, data);
       if (result.error) {
         setError('Failed to add workout data');
@@ -25,7 +26,8 @@ const WorkoutForm = () => {
         // Reset form fields
         setTitle('');
         setDescription('');
-        setDuration('');
+        setHours('');
+        setMinutes('');
         setDate('');
       }
     } catch (e : any) {
@@ -34,10 +36,10 @@ const WorkoutForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 max-w-lg mx-auto p-10 bg-white shadow-md rounded">
+    <form onSubmit={handleSubmit} className="space-y-4 text-gray-600 max-w-lg mx-auto p-10 bg-white shadow-md rounded">
       <div>
-      <h1 className="text-2xl font-bold mb-4">Log a Workout</h1>
-        <label htmlFor="title">Title:</label>
+      <h1 className="text-2xl font-bold mb-4">Add a workout</h1>
+        <label htmlFor="title">Title</label>
         <input
           type="text"
           id="title"
@@ -48,7 +50,7 @@ const WorkoutForm = () => {
         />
       </div>
       <div>
-        <label htmlFor="description">Description:</label>
+        <label htmlFor="description">Description</label>
         <input
           type="text"
           id="description"
@@ -57,20 +59,35 @@ const WorkoutForm = () => {
           required
           className="block w-full mt-1 p-2 border border-gray-300 rounded"
         />
+      </div> 
+
+      <div className='flex'>
+        <div className='mr-2'>
+          <label htmlFor="hours">Hours</label>
+          <input
+            type="number"
+            id="duration"
+            value={hours}
+            onChange={(e) => setHours(e.target.value)}
+            required
+            className="block w-full mt-1 p-2 border border-gray-300 rounded"
+          />
+        </div>
+        <div className='ml-2'>
+          <label htmlFor="hours">Minutes</label>
+          <input
+            type="number"
+            id="duration"
+            value={minutes}
+            onChange={(e) => setMinutes(e.target.value)}
+            required
+            className="block w-full mt-1 p-2 border border-gray-300 rounded"
+          />
+        </div>
       </div>
+
       <div>
-        <label htmlFor="duration">Duration:</label>
-        <input
-          type="text"
-          id="duration"
-          value={duration}
-          onChange={(e) => setDuration(e.target.value)}
-          required
-          className="block w-full mt-1 p-2 border border-gray-300 rounded"
-        />
-      </div>
-      <div>
-        <label htmlFor="date">Date:</label>
+        <label htmlFor="date">Date</label>
         <input
           type="date"
           id="date"
@@ -81,12 +98,12 @@ const WorkoutForm = () => {
         />
       </div>
       {error && <p className="text-red-500">{error}</p>}
-      {success && <p className="text-green-500">{success}</p>}
+      {success && <p className="text-gray-600">{success}</p>}
       <button
         type="submit"
         className="w-full py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600"
       >
-        Submit
+        Add
       </button>
     </form>
   );

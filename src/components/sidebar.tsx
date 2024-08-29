@@ -16,7 +16,7 @@ const Sidebar = () => {
             <nav className="flex-1 p-8">
                 <ul className="space-y-4">
                     <li>
-                        <Link href="/workout-log">
+                        <Link href="/">
                             <p className={`p-2 px-6 cursor-pointer rounded-md ${selected === 'workout-log' ? 'bg-blue-600 text-white' : ''}
                             hover:bg-blue-500 hover:text-white`} onClick={() => setSelected('workout-log')}>
                                 Workouts</p>

@@ -1,3 +1,5 @@
+'use client'
+import withAuth from "@/components/HOC/withAuth";
 import WorkoutForm from '@/components/workoutForm';
 import React from 'react'; // Adjust the path as needed
 
@@ -9,4 +11,4 @@ const addWorkout = () => {
   );
 };
 
-export default addWorkout;
+export default withAuth(addWorkout);

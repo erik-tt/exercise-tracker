@@ -1,10 +1,11 @@
 'use client'
 import React from "react";
+import WorkoutList from "@/components/workoutList";
 import { useAuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import Header from "@/components/header";
+import withAuth from "@/components/HOC/withAuth";
 
-export default function Page() {
+const workoutPage = () => {
     const { user } = useAuthContext()
     const router = useRouter()
 
@@ -13,8 +14,13 @@ export default function Page() {
     }, [user])
 
     return (
-        <div>
-            <h1>Landing Page</h1>
-        </div>
+        <>
+            <div className="bg-gray-100 w-full min-h-screen">
+                <h1 className="text-4xl text-center p-6">Workouts</h1>
+                <WorkoutList />
+            </div>
+        </>
     );
 }
+
+export default withAuth(workoutPage);
