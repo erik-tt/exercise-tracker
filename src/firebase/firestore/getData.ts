@@ -27,11 +27,11 @@ export async function getPaginatedDocuments(collectionName: string, lastDoc: any
 
     try {
         // Base query to order by document ID (timestamp) and limit to 10 documents
-        let q = query(colRef, orderBy("__name__", "desc"), limit(10));
+        let q = query(colRef, orderBy("createdAt", "desc"), limit(10));
 
         // If there is a last document (from previous query), start the query after it
         if (lastDoc) {
-            q = query(colRef, orderBy("__name__", "desc"), startAfter(lastDoc), limit(10));
+            q = query(colRef, orderBy("createdAt", "desc"), startAfter(lastDoc), limit(10));
         }
 
         const querySnapshot = await getDocs(q);
@@ -42,8 +42,10 @@ export async function getPaginatedDocuments(collectionName: string, lastDoc: any
                 id: doc.id,
                 title: doc.data().title as string,
                 description: doc.data().description as string,
-                duration: doc.data().duration as string,
+                hours: doc.data().hours as string,
+                minutes: doc.data().minutes as string,
                 date: doc.data().date as string,
+                createdAt: doc.data().createdAt as string
             });
         });
 

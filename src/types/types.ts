@@ -4,8 +4,10 @@ export interface Workout {
     id: string;
     title: string;
     description: string;
-    duration: string;
+    hours: string;
+    minutes: string;
     date: string;
+    createdAt: any;
 }
 
 
@@ -14,7 +16,8 @@ export interface Workout {
 export interface WorkoutCardProps {
     title: string;
     description: string;
-    duration: string;
+    hours: string;
+    minutes: string;
     date: string;
 }
 

@@ -1,7 +1,9 @@
 "use client";
 
 import addData from '@/firebase/firestore/addData';
+import { serverTimestamp } from 'firebase/firestore';
 import React, { useState } from 'react'; // Adjust the path as needed
+import { isNull } from 'util';
 
 const WorkoutForm = () => {
   const [title, setTitle] = useState('');
@@ -16,8 +18,9 @@ const WorkoutForm = () => {
     e.preventDefault();
 
     try {
-      const id = new Date().toISOString(); // Generate a unique ID, e.g., timestamp
-      const data = { title, description, hours, minutes, date };
+      const id = new Date().toISOString();
+      const createdAt = serverTimestamp() // Generate a unique ID, e.g., timestamp
+      const data = { title, description, hours, minutes, date, createdAt};
       const result = await addData('workouts', id, data);
       if (result.error) {
         setError('Failed to add workout data');
