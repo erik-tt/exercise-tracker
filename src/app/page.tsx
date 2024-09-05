@@ -50,7 +50,10 @@ const workoutPage = () => {
                 fetchWorkouts();
             }
         }
+        setLoading(false);
     }, [loading, lastDoc]);
+
+    
 
     const handleLoadMore = () => {
         setLoading(true);
@@ -58,8 +61,8 @@ const workoutPage = () => {
 
     return (
         <div className="bg-gray-100 w-full min-h-screen text-gray-600">
-            <h1 className="text-4xl text-center p-6">Workouts</h1>
-            <div>
+            <h1 className="text-4xl text-center pt-24 ml-24">Workouts</h1>
+            <div className="ml-24">
                 {error && <p>{error}</p>}
                 {loading ? (<LoadingSpinner/>
                 ) : (
@@ -76,6 +79,9 @@ const workoutPage = () => {
                         ))}
                     </div>
                 )}
+                <div className="text-xl text-center p-6">
+                    <button onClick={handleLoadMore}>Load more</button>
+                </div>
             </div>
         </div>
     );

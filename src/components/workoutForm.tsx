@@ -3,7 +3,6 @@
 import addData from '@/firebase/firestore/addData';
 import { serverTimestamp } from 'firebase/firestore';
 import React, { useState } from 'react'; // Adjust the path as needed
-import { isNull } from 'util';
 
 const WorkoutForm = () => {
   const [title, setTitle] = useState('');
@@ -39,7 +38,7 @@ const WorkoutForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 text-gray-600 max-w-lg mx-auto p-10 bg-white shadow-md rounded">
+    <form onSubmit={handleSubmit} className="space-y-4 text-gray-600 max-w-lg mx-auto p-10 bg-white shadow-sm rounded">
       <div>
       <h1 className="text-2xl font-bold mb-4">Add a workout</h1>
         <label htmlFor="title">Title</label>
@@ -104,7 +103,7 @@ const WorkoutForm = () => {
       {success && <p className="text-gray-600">{success}</p>}
       <button
         type="submit"
-        className="w-full py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600"
+        className="w-full py-2 px-4 bg-gray-500 text-white rounded hover:bg-gray-600"
       >
         Add
       </button>

@@ -1,5 +1,8 @@
 import React, { useState, useEffect} from 'react';
 import Link from 'next/link';
+import RunCircleIcon from '@mui/icons-material/RunCircle';
+import TimelineIcon from '@mui/icons-material/Timeline';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 const Sidebar = () => {
     
@@ -12,30 +15,37 @@ const Sidebar = () => {
 
 
     return (
-        <div className="h-screen w-58 bg-white text-gray-800 flex flex-col border-r">
+        <div className=" h-[calc(100vh-4rem)] w-58 bg-white text-gray-800 flex flex-col border-r border-t fixed top-16">
             <nav className="flex-1 p-8">
                 <ul className="space-y-4">
                     <li>
                         <Link href="/">
-                            <p className={`p-2 px-6 cursor-pointer rounded-md ${selected === 'workout-log' ? 'bg-blue-600 text-white' : ''}
-                            hover:bg-blue-500 hover:text-white`} onClick={() => setSelected('workout-log')}>
-                                Workouts</p>
+                            <div className="flex items-center">
+                                <RunCircleIcon className='text-gray-400'/>
+                                <p className={`p-2 cursor-pointer rounded-md`} onClick={() => setSelected('workout-log')}>
+                                    Workouts
+                                </p>
+                            </div>
                         </Link>
                     </li>
                     <li>
                         <Link href="/dashboard">
-                            <p className={`p-2 px-6 cursor-pointer rounded-md  ${selected === 'dashboard' ? 'bg-blue-600 text-white' : ''}
-                            hover:bg-blue-500 hover:text-white`} onClick={() => setSelected('dashboard')}>
-                                Dashboard
-                            </p>
+                            <div className="flex items-center">
+                                <TimelineIcon className='text-gray-400'/>
+                                <p className={`p-2 cursor-pointer rounded-md`} onClick={() => setSelected('dashboard')}>
+                                    Dashboard
+                                </p>
+                            </div>
                         </Link> 
                     </li>
                     <li>
                         <Link href="/add">
-                            <p className={`p-2 px-6  cursor-pointer rounded-md border border-purple-600 
-                            hover:bg-blue-500 hover:text-white`} onClick={() => setSelected('add')}>
-                                Add + 
-                            </p>
+                            <div className="flex items-center">
+                                <AddBoxIcon className='text-gray-400'/>
+                                <p className={`p-2 cursor-pointer rounded-md`} onClick={() => setSelected('add')}>
+                                    Add
+                                </p>
+                            </div>
                         </Link>
                     </li>
                 </ul>

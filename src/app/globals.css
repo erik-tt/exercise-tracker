@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 .loader {
-    border-top-color: #b726d4;
-    border-left-color: #b726d4;
-    border-right-color: #b726d4;
+    border-top-color: #555555;
+    border-left-color: #555555;
+    border-right-color: #555555;
     border-bottom-color: transparent;
     border-radius: 50%;
     width: 50px;

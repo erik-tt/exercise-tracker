@@ -27,7 +27,7 @@ export async function getPaginatedDocuments(collectionName: string, lastDoc: any
 
     try {
         // Base query to order by document ID (timestamp) and limit to 10 documents
-        let q = query(colRef, orderBy("createdAt", "desc"), limit(10));
+        let q = query(colRef, orderBy("createdAt", "desc"), limit(100));
 
         // If there is a last document (from previous query), start the query after it
         if (lastDoc) {
