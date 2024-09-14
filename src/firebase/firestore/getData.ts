@@ -1,6 +1,7 @@
 import { Workout } from "@/types/types";
 import firebase_app from "../config";
-import { getFirestore, doc, getDoc, collection, query, orderBy, limit, startAfter, getDocs } from "firebase/firestore";
+import { getFirestore, doc, getDoc, collection, query, orderBy, limit, startAfter, getDocs, where } from "firebase/firestore";
+import { useAuthContext } from "@/context/AuthContext";
 
 const db = getFirestore(firebase_app)
 export async function getDocument(collection : string, id : string) {
@@ -19,43 +20,39 @@ export async function getDocument(collection : string, id : string) {
 }
 
 
-export async function getPaginatedDocuments(collectionName: string, lastDoc: any = null) {
+export async function getWorkouts(collectionName: string, uid: string | undefined) {
     const colRef = collection(db, collectionName);
 
-    let result : Workout[] = [];
+    let workouts : Workout[] = [];
     let error = null;
 
     try {
         // Base query to order by document ID (timestamp) and limit to 10 documents
-        let q = query(colRef, orderBy("createdAt", "desc"), limit(100));
+        let q = query(colRef, where('uid', '==', uid));
 
-        // If there is a last document (from previous query), start the query after it
-        if (lastDoc) {
-            q = query(colRef, orderBy("createdAt", "desc"), startAfter(lastDoc), limit(10));
-        }
 
         const querySnapshot = await getDocs(q);
 
         // Collecting all the documents
         querySnapshot.forEach((doc) => {
-            result.push({ 
+            workouts.push({ 
                 id: doc.id,
-                title: doc.data().title as string,
+                selectedActivity: doc.data().selectedActivity as string,
                 description: doc.data().description as string,
                 hours: doc.data().hours as string,
                 minutes: doc.data().minutes as string,
                 date: doc.data().date as string,
-                createdAt: doc.data().createdAt as string
+                createdAt: doc.data().createdAt as string,
             });
         });
 
         // Get the last document from this batch (used for the next query)
         const lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
 
-        return { result, lastVisible, error };
+        return { workouts, lastVisible, error };
     } catch (e) {
         error = e;
     }
 
-    return { result, lastVisible: null, error };
+    return { workouts, lastVisible: null, error };
 }

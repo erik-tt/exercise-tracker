@@ -1,102 +1,158 @@
 "use client";
 
-import addData from '@/firebase/firestore/addData';
-import { serverTimestamp } from 'firebase/firestore';
-import React, { useState } from 'react'; // Adjust the path as needed
+import addData from "@/firebase/firestore/addData";
+import { serverTimestamp } from "firebase/firestore";
+import React, { useState } from "react";
+import ActivitySelector from "./activitySelector";
+import { DateInput, Textarea, Input } from "@nextui-org/react";
+import { parseDate } from "@internationalized/date";
+import { useAuthContext } from "@/context/AuthContext";
+
+// Helper function
+const getTodayDate = () => {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are 0-based, so we add 1
+  const day = String(today.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+};
 
 const WorkoutForm = () => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [hours, setHours] = useState('');
-  const [minutes, setMinutes] = useState('');
-  const [date, setDate] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [description, setDescription] = useState("");
+  const [hours, setHours] = useState<number | string>("");
+  const [minutes, setMinutes] = useState<number | string>("");
+  const [date, setDate] = useState(getTodayDate());
+  const [error, setError] = useState("");
+  const [hourError, setHourError] = useState("");
+  const [minuteError, setMinuteError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [selectedActivity, setSelectedActivity] = useState("");
+  const { user } = useAuthContext();
+  const uid = user?.uid;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
       const id = new Date().toISOString();
-      const createdAt = serverTimestamp() // Generate a unique ID, e.g., timestamp
-      const data = { title, description, hours, minutes, date, createdAt};
-      const result = await addData('workouts', id, data);
+      const createdAt = serverTimestamp();
+      const data = {
+        selectedActivity,
+        description,
+        hours,
+        minutes,
+        date,
+        createdAt,
+        uid,
+      };
+      const result = await addData("workouts", id, data);
       if (result.error) {
-        setError('Failed to add workout data');
+        setError("Failed to add workout data");
       } else {
-        setSuccess('Workout data added successfully');
+        setSuccess("Workout data added successfully");
         // Reset form fields
-        setTitle('');
-        setDescription('');
-        setHours('');
-        setMinutes('');
-        setDate('');
+        setSelectedActivity("");
+        setDescription("");
+        setHours("");
+        setMinutes("");
+        setDate(getTodayDate());
       }
-    } catch (e : any) {
-      setError('An error occurred: ' + e.message);
+    } catch (e: any) {
+      setError("An error occurred: " + e.message);
+    }
+  };
+
+  const handleHourInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    if (value === "") {
+      setHourError("");
+      setHours("");
+      return;
+    }
+    let number = parseInt(value);
+    if (Number.isNaN(number) && value != "") {
+      setHourError("Use numbers for hours");
+    } else {
+      setError("");
+      setHours(number);
+    }
+  };
+
+  const handleMinutesInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    if (value === "") {
+      setMinuteError("");
+      setMinutes("");
+      return;
+    }
+    let number = parseInt(value);
+    if (Number.isNaN(number)) {
+      setMinuteError("Use numbers for minutes");
+      return;
+    }
+    if (number > 60) {
+      setMinuteError("Minutes cannot be larger than 60");
+      return;
+    } else {
+      setHourError("");
+      setMinutes(number);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 text-gray-600 max-w-lg mx-auto p-10 bg-white shadow-sm rounded">
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-4 text-gray-600 max-w-lg mx-auto p-10 bg-white shadow-sm rounded"
+    >
       <div>
-      <h1 className="text-2xl font-bold mb-4">Add a workout</h1>
-        <label htmlFor="title">Title</label>
-        <input
-          type="text"
-          id="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-          className="block w-full mt-1 p-2 border border-gray-300 rounded"
+        <h1 className="text-2xl font-bold mb-4">Add a workout</h1>
+        <ActivitySelector
+          selectedActivity={selectedActivity}
+          setSelectedActivity={setSelectedActivity}
         />
       </div>
       <div>
-        <label htmlFor="description">Description</label>
-        <input
-          type="text"
-          id="description"
+        <Textarea
+          label="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          required
-          className="block w-full mt-1 p-2 border border-gray-300 rounded"
+          placeholder="Enter your workout description"
+          className=" w-full"
         />
-      </div> 
+      </div>
 
-      <div className='flex'>
-        <div className='mr-2'>
-          <label htmlFor="hours">Hours</label>
-          <input
-            type="number"
-            id="duration"
-            value={hours}
-            onChange={(e) => setHours(e.target.value)}
-            required
-            className="block w-full mt-1 p-2 border border-gray-300 rounded"
+      <div className="flex">
+        <div className="mr-2">
+          <Input
+            label="Hours"
+            value={hours.toString()}
+            onChange={handleHourInput}
+            isRequired
+            isInvalid={hourError.length != 0}
+            errorMessage={hourError}
+            className="w-full"
           />
         </div>
-        <div className='ml-2'>
-          <label htmlFor="hours">Minutes</label>
-          <input
-            type="number"
-            id="duration"
-            value={minutes}
-            onChange={(e) => setMinutes(e.target.value)}
-            required
-            className="block w-full mt-1 p-2 border border-gray-300 rounded"
+        <div className="ml-2">
+          <Input
+            label="Minutes"
+            value={minutes.toString()}
+            onChange={handleMinutesInput}
+            isRequired
+            isInvalid={minuteError.length != 0}
+            errorMessage={minuteError}
+            className="w-full"
           />
         </div>
       </div>
 
       <div>
-        <label htmlFor="date">Date</label>
-        <input
-          type="date"
-          id="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          required
-          className="block w-full mt-1 p-2 border border-gray-300 rounded"
+        <DateInput
+          label={"Date"}
+          isRequired
+          defaultValue={parseDate(getTodayDate())}
+          className="w-full"
         />
       </div>
       {error && <p className="text-red-500">{error}</p>}

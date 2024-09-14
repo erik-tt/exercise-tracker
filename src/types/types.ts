@@ -2,7 +2,7 @@
 //Types:
 export interface Workout {
     id: string;
-    title: string;
+    selectedActivity: string;
     description: string;
     hours: string;
     minutes: string;
@@ -14,7 +14,7 @@ export interface Workout {
 
 //Props:
 export interface WorkoutCardProps {
-    title: string;
+    selectedActivity: string;
     description: string;
     hours: string;
     minutes: string;
