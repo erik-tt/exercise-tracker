@@ -6,7 +6,7 @@ import React, { useEffect } from 'react'; // Adjust the path as needed
 const addWorkout = () => {
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="pt-12">
       <WorkoutForm/>
     </div>
   );

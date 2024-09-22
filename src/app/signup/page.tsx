@@ -25,7 +25,7 @@ export default function Page() {
     }
     
     return ( 
-    <div className=" wrapper flex justify-center items-center min-h-screen bg-gray-400">
+    <div className=" wrapper flex justify-center min-h-screen items-center bg-gray-400">
     <div className="form-wrapper bg-white p-10 rounded-lg shadow-md text-gray-700">
       <h1 className="text-2xl font-bold mb-6">Sign Up</h1>
       <form onSubmit={handleForm} className="form space-y-4">

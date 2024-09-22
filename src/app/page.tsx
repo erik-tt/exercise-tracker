@@ -49,7 +49,7 @@ const workoutPage = () => {
   };
 
   return (
-    <div className=" text-gray-600">
+    <div className=" text-gray-600 pt-12">
       <h1 className="text-4xl text-center">Workouts</h1>
       <div className="">
         {error && <p>{error}</p>}

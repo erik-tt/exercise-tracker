@@ -100,6 +100,10 @@ const WorkoutForm = () => {
     }
   };
 
+  const handleDateChange = (newDate: any) => {
+    setDate(newDate.toString()); // Update the `date` state when the user selects a new date
+  };
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -151,7 +155,8 @@ const WorkoutForm = () => {
         <DateInput
           label={"Date"}
           isRequired
-          defaultValue={parseDate(getTodayDate())}
+          value={parseDate(date)}
+          onChange={handleDateChange}
           className="w-full"
         />
       </div>

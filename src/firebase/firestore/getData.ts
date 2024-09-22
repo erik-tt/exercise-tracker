@@ -56,3 +56,7 @@ export async function getWorkouts(collectionName: string, uid: string | undefine
 
     return { workouts, lastVisible: null, error };
 }
+
+export async function getWorkoutsFromPeriod(collectionName: string, uid: string | undefined, from: string, to: string) {
+
+}

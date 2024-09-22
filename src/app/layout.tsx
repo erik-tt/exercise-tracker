@@ -27,7 +27,7 @@ export default function RootLayout({
             <main
               className={`${
                 showSidebar ? "flex-1" : "w-full"
-              } pt-12 text-gray-600  bg-gray-100 overflow-y-auto`}
+              } text-gray-600  bg-gray-100 overflow-y-auto`}
             >
               {children}
             </main>
