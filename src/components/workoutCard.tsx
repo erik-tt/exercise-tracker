@@ -1,7 +1,6 @@
 import { WorkoutCardProps } from "@/types/types";
 import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-
 import DirectionsRunIcon from "@mui/icons-material/DirectionsRun";
 import DirectionsBikeIcon from "@mui/icons-material/DirectionsBike";
 import FitnessCenterIcon from "@mui/icons-material/FitnessCenter";
